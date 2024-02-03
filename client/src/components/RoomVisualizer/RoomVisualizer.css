@@ -1,0 +1,14 @@
+.room-visualizer-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 20px; /* Add padding to the top */
+}
+
+.room-svg {
+    border: 1px solid black; /* Add border for visualization */
+}
+.h2{
+    fill: white;
+
+}
