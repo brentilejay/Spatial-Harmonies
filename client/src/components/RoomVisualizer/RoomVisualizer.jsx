@@ -20,7 +20,7 @@ function RoomVisualizer({ roomData }) {
             const newDoorPositionY = doorPositionY + deltaY;
 
             // Update the position of the door within the bounds of the left wall
-            if (newDoorPositionY >= 0 && newDoorPositionY <= roomLength) {
+            if (newDoorPositionY >= 0 && newDoorPositionY + (32*5) <= roomLength) {
                 setDoorPositionY(newDoorPositionY);
                 setDoorPositionText(`Door Position = ${(newDoorPositionY/5)+16}`);
             }
