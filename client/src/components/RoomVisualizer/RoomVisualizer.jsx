@@ -3,9 +3,32 @@ import React, { useState } from 'react';
 
 import './RoomVisualizer.css';
 import floorImage from '../images/WoodFloorPattern.jpeg';
+import doorImage from '../images/Door.png';
 
 function RoomVisualizer({ roomData }) {
-    
+    // Assuming roomData contains dimensions in inches
+    const { width, length, doorPosition, windowWall, windowPosition } = roomData;
+
+    // Define the scale factor (1 inch = 10 SVG units)
+    const scaleFactor = 5;
+
+    // Door and window widths
+    const doorWidthInches = 32;
+    const doorThickness = 2;
+
+    const windowWidthInches = 22;
+
+    // Convert inch measurements to SVG units
+    const roomWidth = width * scaleFactor;
+    const roomLength = length * scaleFactor;
+
+    // Calculate the width and height of the door and window proportionate to the room
+    const doorWidth = doorWidthInches * scaleFactor;
+    const doorHeight = 22 * scaleFactor; // Assuming door height is 80 inches, adjust as needed
+    const windowHeight = 2 *scaleFactor; // Height of the window line
+
+
+
     const [doorPositionY, setDoorPositionY] = useState(0); // Initial position of the door
     const [doorPositionText, setDoorPositionText] = useState('Door Position = 0');
 
@@ -37,33 +60,12 @@ function RoomVisualizer({ roomData }) {
         window.addEventListener('mouseup', handleMouseUp);
     };
 
-    // Assuming roomData contains dimensions in inches
-    const { width, length, doorPosition, windowWall, windowPosition } = roomData;
-
-    // Define the scale factor (1 inch = 10 SVG units)
-    const scaleFactor = 5;
-
-    // Door and window widths
-    const doorWidthInches = 32;
-    const doorThickness = 2;
-
-    const windowWidthInches = 22;
-
-    // Convert inch measurements to SVG units
-    const roomWidth = width * scaleFactor;
-    const roomLength = length * scaleFactor;
-
-    // Calculate the width and height of the door and window proportionate to the room
-    const doorWidth = doorWidthInches * scaleFactor;
-    const doorHeight = 32 * scaleFactor; // Assuming door height is 80 inches, adjust as needed
-    const windowHeight = 2 *scaleFactor; // Height of the window line
-
-
-
+    
     return (
         <div className="room-visualizer-container">
             <div>
-                <svg width={roomWidth} height={roomLength} className="room-svg">
+               
+                <svg width={roomWidth} height={roomLength} className="room-svg" style={{ overflow: 'visible' }} >
                     {/* Your SVG elements */}
                     <image href={floorImage} x="0" y="0" width={roomWidth} height={roomLength} preserveAspectRatio="none" />
     
@@ -84,8 +86,19 @@ function RoomVisualizer({ roomData }) {
                     {windowWall === 'right' && (
                         <rect x={(roomWidth)-5} y={windowPosition * scaleFactor} width={windowHeight} height={windowWidthInches * scaleFactor} fill="blue" />
                     )}
+                    <image
+                        href={doorImage}
+                        //xlinkHref="url_to_your_image.jpg" // Replace "url_to_your_image.jpg" with the path to your image file
+                        x={'-364.668717948px'} y={doorPositionY}
+                    // width={2 * scaleFactor} height={doorWidth*scaleFactor}
+                        //width={111} height={48*5}
+                        style={{ width: '364.668717948px', height: '160px', cursor: 'grab' }}
+                        onMouseDown={handleMouseDown}
+                        //style={{  }}
+                    />
 
-                    {/* Door element with drag and drop functionality */}
+                    
+                    {/* Door element with drag and drop functionality 
                     <rect
                         x={0} y={doorPositionY}
                         width={2 * scaleFactor} height={doorWidth}
@@ -93,8 +106,9 @@ function RoomVisualizer({ roomData }) {
                         onMouseDown={handleMouseDown}
                         style={{ cursor: 'grab' }} // Change cursor to indicate draggable element
                     />
-                    
+                    */}
                 </svg>
+            
             {/* Display door position */}
             <h2 style={{ marginLeft: '10px', color: 'white' }}>Door Position: {doorPositionText}</h2>
             </div>

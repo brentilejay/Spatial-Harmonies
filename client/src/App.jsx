@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import RoomVisualizer from './components/RoomVisualizer/RoomVisualizer.jsx';
+import titleGIF from './components/images/titleGIF.gif'
 import './App.css';
 
 function App() {
@@ -61,7 +62,10 @@ function App() {
 
     return (
         <div>
-            <h1>Room Visualizer</h1>
+            <h1 className="gif-with-shadow">
+                
+                <img src={titleGIF} style={{ width: '500px', height: 'auto' }} />
+            </h1>
             <div className="form-container">
                 <form onSubmit={handleFormSubmit}>
                 <label htmlFor="width">Width:</label>
@@ -72,7 +76,7 @@ function App() {
 
                     <label htmlFor="doorPosition">Door Position:</label>
                     <input type="number" id="doorPosition" name="doorPosition" required />
-
+    
                     <label htmlFor="windowWall">Window Wall:</label>
                     <select id="windowWall" name="windowWall" required>
                         <option value="top">Top</option>

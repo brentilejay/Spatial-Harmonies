@@ -43,3 +43,84 @@ body {
   background-repeat: no-repeat;
 }
 
+/* Button styles */
+button {
+  background-color: #4CAF50; /* Green background */
+  border: none;
+  color: white; /* White text */
+  padding: 15px 32px; /* Padding */
+  text-align: center; /* Center text */
+  text-decoration: none;
+  display: inline-block; /* Display as inline block */
+  font-size: 16px;
+  margin: 4px 2px; /* Margin */
+  transition-duration: 0.4s; /* Smooth transition on hover */
+  cursor: pointer; /* Cursor pointer */
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #45a049; /* Darker green background on hover */
+  color: white; /* White text on hover */
+}
+
+h1 {
+  color: white;
+  font-family: cursive;
+  text-align: center;
+  font-size: 300%;
+}
+.form-container {
+  color: beige;
+  background-color: rgb(217, 165, 96);
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 200px 200px rgba(241, 241, 242, 0.1); /* Add shadow */
+}
+
+.form-container form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-container label,
+.form-container input[type="number"],
+.form-container select {
+  width: calc(50% - 10px);
+  margin-bottom: 10px;
+}
+
+.form-container label {
+  font-weight: bold;
+}
+
+.form-container input[type="number"],
+.form-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container button {
+  padding: 10px 20px;
+  background-color: beige;
+  color: darkgoldenrod;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.gif-with-shadow {
+  align-items: center;
+  size: 1000px;
+}
