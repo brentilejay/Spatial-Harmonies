@@ -3,6 +3,7 @@ import RoomVisualizer from './components/RoomVisualizer/RoomVisualizer.jsx';
 import titleGIF from './components/images/titleGIF.gif'
 import './App.css';
 
+
 function App() {
     const [roomData, setRoomData] = useState({
         width: 0,
@@ -27,11 +28,21 @@ function App() {
             windowPosition: parseFloat(event.target.windowPosition.value)
         };
 
+        
+
         // Update local state with room data
         setRoomData(formData);
 
         // Set room layout generated to true
         setRoomLayoutGenerated(true);
+    };
+
+    // Function to update door position in App component
+    const updateDoorPosition = (newPosition) => {
+        setRoomData(prevRoomData => ({
+            ...prevRoomData,
+            doorPosition: newPosition
+        }));
     };
 
     const generateBedLayout = () => {
@@ -94,7 +105,7 @@ function App() {
             </div>
             <div> 
                 {/* Display room visualizer only if room layout is generated */}
-                {roomLayoutGenerated && <RoomVisualizer roomData={roomData} bedLayout={bedLayout} />}
+                {roomLayoutGenerated && <RoomVisualizer roomData={roomData} bedLayout={bedLayout} updateDoorPosition={updateDoorPosition}/>}
                 {/* Render button if room layout has been generated */}
                 {roomLayoutGenerated && (
                     <button onClick={generateBedLayout}>Generate Bed Layout</button>

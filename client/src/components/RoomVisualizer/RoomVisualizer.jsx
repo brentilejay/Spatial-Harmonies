@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import './RoomVisualizer.css';
 import floorImage from '../images/WoodFloorPattern.jpeg';
 import doorImage from '../images/Door.png';
+//const { updateDoorPosition } = require("./components/RoomVisualizer.jsx");
 
-function RoomVisualizer({ roomData }) {
+
+
+function RoomVisualizer({ roomData, updateDoorPosition }) {
     // Assuming roomData contains dimensions in inches
     const { width, length, doorPosition, windowWall, windowPosition } = roomData;
 
@@ -35,19 +38,26 @@ function RoomVisualizer({ roomData }) {
     const handleMouseDown = (event) => {
         // Calculate initial mouse position
         const initialMouseY = event.clientY;
+        //const newDoorPositionYcalculated = 0;
 
         const handleMouseMove = (event) => {
             // Calculate the new position of the door based on mouse movement
             const mouseY = event.clientY;
             const deltaY = mouseY - initialMouseY;
             const newDoorPositionY = doorPositionY + deltaY;
+            //const newDoorPositionYcalculated = 0;
 
             // Update the position of the door within the bounds of the left wall
             if (newDoorPositionY >= 0 && newDoorPositionY + (32*5) <= roomLength) {
+                const newDoorPositionYcalculated = (newDoorPositionY/5)+16;
                 setDoorPositionY(newDoorPositionY);
-                setDoorPositionText(`Door Position = ${(newDoorPositionY/5)+16}`);
+                setDoorPositionText(`Door Position = ${(newDoorPositionYcalculated)}`);
+                updateDoorPosition(newDoorPositionYcalculated);
             }
         };
+
+         // Attach mouse move event listener
+        window.addEventListener('mousemove', handleMouseMove);
 
         const handleMouseUp = () => {
             // Remove event listeners when mouse is released
@@ -56,7 +66,7 @@ function RoomVisualizer({ roomData }) {
         };
 
         // Add event listeners for mouse movement and release
-        window.addEventListener('mousemove', handleMouseMove);
+        //window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
     };
 
