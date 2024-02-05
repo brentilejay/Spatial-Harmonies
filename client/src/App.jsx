@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import RoomVisualizer from './components/RoomVisualizer/RoomVisualizer.jsx';
+import BedPlacement from './components/BedPlacement/BedPlacement.jsx';
 import titleGIF from './components/images/titleGIF.gif'
 import './App.css';
 
 
 function App() {
+    const [isFormVisible, setIsFormVisible] = useState(false);
+
+    const toggleFormVisibility = () => {
+        setIsFormVisible(prevState => !prevState);
+    };
+    
     const [roomData, setRoomData] = useState({
         width: 0,
         length: 0,
@@ -61,23 +68,44 @@ function App() {
             return response.json();
         })
         .then(data => {
-            // Handle response data
-            console.log('Received response from backend:', data);
+            console.log('Received response from backend bro:', data);
             // Set bed layout received from backend
-            setBedLayout(data.bedLayout);
+            const { bedCoordinate } = data;
+            setBedLayout([bedCoordinate]);
+            
+            /*
+            // Handle response data
+            if (Array.isArray(data)) {
+                setBedLayout(data);
+            } else {
+                console.error('Data received for bedLayout is not an array:', data);
+            }
+            console.log('Received response from backend:', data.bedCoordinates);
+            // Set bed layout received from backend
+            setBedLayout(data);
+            console.log('this the coord', bedLayout);
+    
+            // Now that bed layout is received, you can perform any other necessary operations
+            // For example, you can navigate to a different page or show a modal with the bed layout
+            */
         })
         .catch(error => {
             console.error('Error:', error);
         });
     };
+    
+
+
+
 
     return (
         <div>
             <h1 className="gif-with-shadow">
-                
                 <img src={titleGIF} style={{ width: '500px', height: 'auto' }} />
             </h1>
-            <div className="form-container">
+            <button onClick={toggleFormVisibility}>Toggle Form</button>
+
+            <div className={`form-container ${isFormVisible ? 'active' : ''}`}>
                 <form onSubmit={handleFormSubmit}>
                 <label htmlFor="width">Width:</label>
                     <input type="number" id="width" name="width" required />
@@ -103,21 +131,46 @@ function App() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <div> 
-                {/* Display room visualizer only if room layout is generated */}
-                {roomLayoutGenerated && <RoomVisualizer roomData={roomData} bedLayout={bedLayout} updateDoorPosition={updateDoorPosition}/>}
-                {/* Render button if room layout has been generated */}
+            <div>
+                {roomLayoutGenerated && <RoomVisualizer roomData={roomData} bedLayout={bedLayout} updateDoorPosition={updateDoorPosition} />}
                 {roomLayoutGenerated && (
                     <button onClick={generateBedLayout}>Generate Bed Layout</button>
                 )}
             </div>
+
         </div>
     );
 }
 
 export default App;
 
-
+/*
+    const generateBedLayout = () => {
+        // Send room data to backend
+        fetch('http://localhost:8000/api/roomdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(roomData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle response data
+            console.log('Received response from backend:', data);
+            // Set bed layout received from backend
+            setBedLayout(data.bedLayout);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+    */
 
 /*
 import React, { useState } from 'react';

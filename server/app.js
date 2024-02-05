@@ -15,15 +15,32 @@ app.post("/api/roomdata", (req, res) => {
   // Extract room data from the request body
   const roomData = req.body;
 
+  try {
+    // Call the bedAlgorithm function to generate the bed coordinate based on the room data
+    const bedCoordinate = bedAlgorithm(roomData);
+
+    // Send the bed coordinate back to the client
+    res.json({ bedCoordinate: bedCoordinate });
+  } catch (error) {
+    console.error("Error generating bed coordinate:", error);
+    // Handle errors and send an error response to the client
+    res.status(500).json({ error: "Error generating bed coordinate" });
+  }
+  /*
+  // Extract room data from the request body
+  const roomData = req.body;
+
   // Call the bedAlgorithm function to generate the bed layout based on the room data
-  const area = bedAlgorithm(roomData);
+  const bedCoord = bedAlgorithm(roomData);
   //console.log('Room data', bedLayout);
 
   // Calculate the area from the bed layout (for testing purposes, assuming bedAlgorithm returns the area)
   //const area = bedLayout.area;
-  console.log('Calculated area from backend:', area);
+  console.log('The coordinates are', bedCoord);
   // Send the area back to the client
-  res.status(200).json({ area });
+  //res.status(200).json({ bedCoord});
+  res.json({ bedCoordinates: bedCoord });
+  */
 });
 
 const port = process.env.PORT || 8000;
