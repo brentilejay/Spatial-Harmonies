@@ -105,8 +105,19 @@ function RoomVisualizer({ roomData, bedLayout, updateDoorPosition }) {
                         <image 
                             key={index}
                             href={bedImage}
+                            style={{ width: '190', height: '370'}}
+                            //x={0 * scaleFactor}
+                            //y={0*scaleFactor}
+                            //y={bedCoords.y * scaleFactor}
                             x={bedCoords.x * scaleFactor}
-                            y={bedCoords.y * scaleFactor}
+                            y={bedCoords.y * scaleFactor }
+                            //style={{ transform: 'rotate(0deg)' }}
+                            //x={bedCoords.x * scaleFactor}
+                            //y={bedCoords.y * scaleFactor}
+                            
+                            //style={{ width: '364.668717948px', height: '160px'}}
+                            transform={`rotate(${bedCoords.rotation}, ${bedCoords.x * scaleFactor}, ${bedCoords.y * scaleFactor})`}
+                            //transform={`rotate(${bedCoords.rotation}, ${bedCoords.x * scaleFactor + (38 / 2)}, ${bedCoords.y * scaleFactor + (74 / 2)})`}
                         />
                     ))}
                     

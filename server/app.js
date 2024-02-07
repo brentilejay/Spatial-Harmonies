@@ -17,10 +17,11 @@ app.post("/api/roomdata", (req, res) => {
 
   try {
     // Call the bedAlgorithm function to generate the bed coordinate based on the room data
-    const bedCoordinate = bedAlgorithm(roomData);
+    const { x, y, rotation } = bedAlgorithm(roomData);
 
     // Send the bed coordinate back to the client
-    res.json({ bedCoordinate: bedCoordinate });
+    res.json({ bedCoordinate: { x, y }, rotation: rotation });
+
   } catch (error) {
     console.error("Error generating bed coordinate:", error);
     // Handle errors and send an error response to the client

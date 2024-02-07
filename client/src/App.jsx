@@ -4,14 +4,13 @@ import BedPlacement from './components/BedPlacement/BedPlacement.jsx';
 import titleGIF from './components/images/titleGIF.gif'
 import './App.css';
 
-
 function App() {
     const [isFormVisible, setIsFormVisible] = useState(false);
 
     const toggleFormVisibility = () => {
         setIsFormVisible(prevState => !prevState);
     };
-    
+
     const [roomData, setRoomData] = useState({
         width: 0,
         length: 0,
@@ -34,8 +33,6 @@ function App() {
             windowWall: event.target.windowWall.value,
             windowPosition: parseFloat(event.target.windowPosition.value)
         };
-
-        
 
         // Update local state with room data
         setRoomData(formData);
@@ -70,39 +67,24 @@ function App() {
         .then(data => {
             console.log('Received response from backend bro:', data);
             // Set bed layout received from backend
-            const { bedCoordinate } = data;
-            setBedLayout([bedCoordinate]);
-            
-            /*
-            // Handle response data
-            if (Array.isArray(data)) {
-                setBedLayout(data);
-            } else {
-                console.error('Data received for bedLayout is not an array:', data);
-            }
-            console.log('Received response from backend:', data.bedCoordinates);
-            // Set bed layout received from backend
-            setBedLayout(data);
-            console.log('this the coord', bedLayout);
-    
-            // Now that bed layout is received, you can perform any other necessary operations
-            // For example, you can navigate to a different page or show a modal with the bed layout
-            */
+            //const { bedCoordinate } = data;
+            //setBedLayout([bedCoordinate]);
+            const { bedCoordinate, rotation } = data;
+            setBedLayout([{ ...bedCoordinate, rotation: rotation }]);
+            console.log('rotation is:', bedLayout.rotation);
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
     };
     
-
-
-
-
     return (
         <div>
             <h1 className="gif-with-shadow">
                 <img src={titleGIF} style={{ width: '500px', height: 'auto' }} />
             </h1>
+
             <button onClick={toggleFormVisibility}>Toggle Form</button>
 
             <div className={`form-container ${isFormVisible ? 'active' : ''}`}>
@@ -131,6 +113,7 @@ function App() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
+
             <div>
                 {roomLayoutGenerated && <RoomVisualizer roomData={roomData} bedLayout={bedLayout} updateDoorPosition={updateDoorPosition} />}
                 {roomLayoutGenerated && (
@@ -145,6 +128,22 @@ function App() {
 export default App;
 
 /*
+
+/*
+            // Handle response data
+            if (Array.isArray(data)) {
+                setBedLayout(data);
+            } else {
+                console.error('Data received for bedLayout is not an array:', data);
+            }
+            console.log('Received response from backend:', data.bedCoordinates);
+            // Set bed layout received from backend
+            setBedLayout(data);
+            console.log('this the coord', bedLayout);
+    
+            // Now that bed layout is received, you can perform any other necessary operations
+            // For example, you can navigate to a different page or show a modal with the bed layout
+            
     const generateBedLayout = () => {
         // Send room data to backend
         fetch('http://localhost:8000/api/roomdata', {
