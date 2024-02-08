@@ -71,15 +71,6 @@ h1 {
   font-size: 300%;
 }
 
-.form-container {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.form-container.active {
-  max-height: 1000px; /* Adjust the maximum height as per your content */
-}
 
 .form-container {
   color: beige;

@@ -3,10 +3,12 @@ import RoomVisualizer from './components/RoomVisualizer/RoomVisualizer.jsx';
 import BedPlacement from './components/BedPlacement/BedPlacement.jsx';
 import titleGIF from './components/images/titleGIF.gif'
 import './App.css';
+import backgroundMusic from './components/sounds/BackgroundMusic.mp3';
+
 
 function App() {
     const [isFormVisible, setIsFormVisible] = useState(false);
-
+    const [isMusicPlaying, setIsMusicPlaying] = useState(false);
     const toggleFormVisibility = () => {
         setIsFormVisible(prevState => !prevState);
     };
@@ -24,6 +26,7 @@ function App() {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
+        setIsMusicPlaying(!isMusicPlaying);
 
         // Extract form data
         const formData = {
@@ -81,13 +84,14 @@ function App() {
     
     return (
         <div>
+            
             <h1 className="gif-with-shadow">
                 <img src={titleGIF} style={{ width: '500px', height: 'auto' }} />
             </h1>
 
-            <button onClick={toggleFormVisibility}>Toggle Form</button>
+            
 
-            <div className={`form-container ${isFormVisible ? 'active' : ''}`}>
+            <div className="form-container">
                 <form onSubmit={handleFormSubmit}>
                 <label htmlFor="width">Width:</label>
                     <input type="number" id="width" name="width" required />
@@ -112,6 +116,8 @@ function App() {
                     
                     <button type="submit">Submit</button>
                 </form>
+
+                
             </div>
 
             <div>
@@ -120,6 +126,11 @@ function App() {
                     <button onClick={generateBedLayout}>Generate Bed Layout</button>
                 )}
             </div>
+            {/* Audio element for background music */}
+            <audio controls autoPlay loop ={isMusicPlaying ? false : true}>
+                    <source src={backgroundMusic} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
 
         </div>
     );

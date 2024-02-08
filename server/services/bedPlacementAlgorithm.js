@@ -27,25 +27,20 @@ function bedAlgorithm(roomData) {
                 rotation = 180;
             } else {
                 //2nd quad against right wall
-                
                 bedX =width;
                 bedY = (doorPosition)/2 - 16;
                 rotation = 90;
-                //bedY = (doorPosition)/2;
-                //bedY=0;
-                
-                console.log(doorPosition);
             }
         } else { //2nd quad
             if (doorPosition < centerY){
                 // 4th quad against bottom wall
                 bedX = width;
-                bedY = length - length/2;
+                bedY = doorPosition+(length - doorPosition)/2 -17.5;
                 rotation = 90;
             } else {
                 //4th quad against right wall
                 bedX = width ;
-                bedY = length - (length/4);
+                bedY = (doorPosition/2)-17.5;
                 rotation = 90;
             }
         }
@@ -56,7 +51,6 @@ function bedAlgorithm(roomData) {
                 bedX = width;
                 bedY =length - (length/3)-17.5; 
                 rotation = 90;
-                //rotation = 90;
             } else {
                 //2nd quad against right wall
                 bedX = width -20;
@@ -82,7 +76,6 @@ function bedAlgorithm(roomData) {
                 bedX = width - width/4;
                 bedY =length; 
                 rotation = 180;
-                //rotation = 90;
             } else {
                 //2nd quad against right wall
                 bedX = width -width/3 - 17.5;
@@ -127,10 +120,6 @@ function bedAlgorithm(roomData) {
             }
         }
     }
-
-
-    
-
     return { x: bedX, y: bedY, rotation };
 }
 module.exports = { bedAlgorithm };
